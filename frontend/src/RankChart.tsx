@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import useFetch from "use-http/dist";
-import {IncomingOptions} from "use-http/dist/types";
 import { VictoryLine, VictoryChart,createContainer, DomainTuple, VictoryTheme, VictoryScatter, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushContainer, VictoryZoomContainerProps, VictoryVoronoiContainerProps, VictoryAxis, VictoryLabel } from 'victory';
 import moment from 'moment';
 import getStyles from "./ChartStyle";
@@ -29,9 +28,7 @@ interface IRankChartProps {
 }
 const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
   const [selectedDomain, setSelectedDomain] = useState<{x:DomainTuple, y: DomainTuple} | undefined>(undefined);
-  const options: IncomingOptions = {
-  }
-  const { loading, error, data = {oneVone: [], team: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, options, [steamId]);
+  const { loading, error, data = {oneVone: [], team: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
   const VictoryZoomVoronoiContainer = createContainer<VictoryZoomContainerProps, VictoryVoronoiContainerProps>("zoom", "voronoi");
   let plot = <></>;
   if(dataAvailable(data)){

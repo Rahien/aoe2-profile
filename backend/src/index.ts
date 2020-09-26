@@ -85,8 +85,8 @@ const getMatchStats: (req:Request) => Promise<any> = async (req) => {
     }
     const leaderBoardId = match.leaderboard_id;
     const matchLength = match.finished - match.started;
-    const mySpot = match.players.findIndex((player) => {
-      return player.steam_id === params.userId;
+    const mySpot = match.players.findIndex((currentPlayer) => {
+      return currentPlayer.steam_id === params.userId;
     });
     const myPlayer = match.players[mySpot];
     const won = myPlayer.won;
@@ -104,7 +104,14 @@ const getMatchStats: (req:Request) => Promise<any> = async (req) => {
     });
   });
 
+  const lastMatch = matches.data[0];
+  const player = lastMatch.players.find((currentPlayer:IMatchPlayer ) => {
+    return currentPlayer.steam_id === params.userId;
+  });
+
   return {
+    name: player.name,
+    country: player.country,
     perCiv: mapKeysToStrings(winsPerCivPerLeaderboardId, strings, ["leaderboard", "civ"]),
     perMap: mapKeysToStrings(winsPerMapPerLeaderboardId, strings, ["leaderboard", "map_type"]),
     perEnemyCiv: mapKeysToStrings(winsPerEnemyCivPerLeaderboardId, strings, ["leaderboard", "civ"]),

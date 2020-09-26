@@ -62,3 +62,9 @@
 body{
   background: black;
 }
+.player-header {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  padding: 1em;
+}
