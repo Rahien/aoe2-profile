@@ -40,3 +40,25 @@
 .chart-wrap {
   width: 800px;
 }
+
+
+.civ-icon {
+  background-image: url("/aoe2-civs.png");
+  background-repeat: no-repeat;
+  width: 148px;
+  height: 148px;
+  background-position-x: 0px;
+  background-position-y: 0px;
+}
+.civ-icon-with-label {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 148px;
+}
+body{
+  background: black;
+}

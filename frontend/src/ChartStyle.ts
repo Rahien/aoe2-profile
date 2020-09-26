@@ -17,6 +17,9 @@ export default function getStyles()
     oneVone: {
       data: {stroke: BLUE_COLOR, strokeWidth: 2}
     },
+    oneVoneSmall: {
+      data: {stroke: BLUE_COLOR, strokeWidth: 1}
+    },
     oneVoneScatter: {
       data: {fill: BLUE_COLOR}, labels: {fill:WHITE_COLOR}
     },
@@ -30,8 +33,15 @@ export default function getStyles()
     teams: {
       data: {stroke: RED_COLOR, strokeWidth: 2}
     },
+    teamsSmall: {
+      data: {stroke: RED_COLOR, strokeWidth: 1}
+    },
     teamsScatter: {
       data: {fill: RED_COLOR}, labels: {fill: WHITE_COLOR}
+    },
+    brush: {
+      fill: WHITE_COLOR,
+      opacity: 0.2
     }
   };
 };

@@ -4,6 +4,8 @@ import {IncomingOptions} from "use-http/dist/types";
 import { VictoryLine, VictoryChart,createContainer, DomainTuple, VictoryTheme, VictoryScatter, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushContainer, VictoryZoomContainerProps, VictoryVoronoiContainerProps, VictoryAxis, VictoryLabel } from 'victory';
 import moment from 'moment';
 import getStyles from "./ChartStyle";
+import CivIcon from "./CivIcon";
+import {CivIconWithLabel} from "./CivIcon";
 
 interface IRankAtTime {
   rating: number,
@@ -91,13 +93,14 @@ const ProfileInfo: React.FC = () => {
         containerComponent={
           <VictoryBrushContainer
             brushDimension="x"
+            brushStyle={styles.brush}
             brushDomain={selectedDomain}
             onBrushDomainChange={setSelectedDomain}
           />
         }
       >
-        <VictoryLine name="small-1v1" style={styles.oneVone} data={xyDataOneVOne}/>
-        <VictoryLine name="small-teams" style={styles.teams} data={xyDataTeams}/>
+        <VictoryLine name="small-1v1" style={styles.oneVoneSmall} data={xyDataOneVOne}/>
+        <VictoryLine name="small-teams" style={styles.teamsSmall} data={xyDataTeams}/>
         <VictoryAxis/>
       </VictoryChart>
     </div>
@@ -107,6 +110,12 @@ const ProfileInfo: React.FC = () => {
     {error && 'Error!'}
     {loading && 'Loading...'}
     {plot}
+
+    <CivIconWithLabel civ={"Franks"}/>
+    <CivIcon civ={"Saracens"}/>
+    <CivIcon civ={"Britons"}/>
+    <CivIcon civ={"Lithuanians"}/>
+    <CivIcon civ={"Incas"}/>
   </div>;
 }
 
