@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Cookie';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cookie-Regular'), url(https://fonts.gstatic.com/s/cookie/v12/syky-y18lb0tSbf9kgqS1NDNpg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 .App {
   text-align: center;
   > .profile {
@@ -324,3 +332,135 @@ a.bmc-btn {
 .bmc-btn-container{
   display: none;
 }
+
+.find-user {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+
+  label {
+    margin-right: 1em;
+  }
+
+  button {
+    background: #111111;
+    outline: none;
+    border: none;
+    margin-left: 1em;
+    padding: 0.5em 1em;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    background: none;
+    border: none;
+    border-bottom: 1px #111111 solid;
+    padding-bottom: 5px;
+    font-size: 1em;
+    color: white;
+  }
+
+  .username-input {
+    background: #333;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+  }
+  .logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+  }
+
+  button {
+    cursor: pointer;
+  }
+  button[disabled]{
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .message {margin-top: 2em;margin-bottom: 2em;font-size: 0.8em;}
+
+  .fine-print {
+    font-size: 0.4em;
+    margin-top: 1em;
+    font-style: italic;
+  }
+}
+
+.bmc-btn svg {
+  height: 30px !important;
+  margin-bottom: 1px !important;
+  box-shadow: none !important;
+  border: none !important;
+  vertical-align: middle !important;
+  transform: scale(0.9);
+}
+
+.bmc-btn {
+  color: #fff;
+  background-color: #000000 !important;
+  height: 60px;
+  border-radius: 12px;
+  font-size: 26px;
+  border: none;
+  padding: 0px 24px;
+  line-height: 27px;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  font-family: 'Cookie', cursive !important;
+  -webkit-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+}
+
+.bmc-btn:hover, .bmc-btn:active, .bmc-btn:focus {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.bmc-btn{
+  .bmc-btn-text {
+    margin-left: 8px;
+    display: inline;
+    line-height: 0;
+  }
+
+  .logo-outline {
+    fill: #fff;
+  }
+
+  .logo-coffee {
+    fill: #fd0;
+  }
+}
+
+
+.loading {
+  font-size: 100px;
+  min-height: 300px;
+  flex-grow: 1;display: flex;justify-content: center;align-items: center;
+}
+
+body {
+  min-height: 100vh;
+}
+
+div#root {min-height: 100vh;}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+

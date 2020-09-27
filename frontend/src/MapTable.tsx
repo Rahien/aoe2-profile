@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, useSortBy, Column,UseSortByHooks, UseSortByColumnProps, HeaderGroup, ColumnInstance, usePagination } from 'react-table'
+import { useTable, useSortBy, Column, usePagination } from 'react-table'
 import {IWinCountsWrap} from "./Types";
 import MapIcon from "./MapIcon";
 

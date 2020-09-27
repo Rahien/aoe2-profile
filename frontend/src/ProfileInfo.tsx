@@ -7,6 +7,7 @@ import WinLossBreakdown from "./WinLossBreakdown";
 import Loading from "./Loading";
 import MapWinLossBreakdown from "./MapWinLossBreakdown";
 import Favorites from "./Favorites";
+import { useParams } from 'react-router-dom';
 
 function buildStats(playerInfo: IPlayerInfo, gameMode: string){
 
@@ -55,10 +56,11 @@ function buildStats(playerInfo: IPlayerInfo, gameMode: string){
 }
 
 const ProfileInfo: React.FC = () => {
-  const [steamId] = useState<string>("76561198006616324");
+  let { id } = useParams();
+  const steamId = id;
   const { loading, error, data = null } = useFetch(`/match-stats?userId=${steamId}`, {}, [steamId]);
   const [gameMode, setGameMode] = useState<string>('all');
-  if(!data) {
+  if(loading) {
     return <Loading/>
   }
   const playerInfo = data as unknown as IPlayerInfo;
@@ -79,7 +81,7 @@ const ProfileInfo: React.FC = () => {
       </div>
 
       {error && 'Error!'}
-      {loading && 'Loading...'}
+      {loading && <Loading/>}
       {winLossBreakdown}
     </div>
     <div className="wrap-960">

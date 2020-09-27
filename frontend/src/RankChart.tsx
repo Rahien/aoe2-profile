@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useFetch from "use-http/dist";
-import { VictoryLine, VictoryChart,createContainer, DomainTuple, VictoryTheme, VictoryScatter, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushContainer, VictoryZoomContainerProps, VictoryVoronoiContainerProps, VictoryAxis, VictoryLabel } from 'victory';
+import { VictoryLine, VictoryChart,createContainer, DomainTuple, VictoryTheme, VictoryScatter, VictoryTooltip, VictoryBrushContainer, VictoryZoomContainerProps, VictoryVoronoiContainerProps, VictoryAxis } from 'victory';
 import moment from 'moment';
 import getStyles from "./ChartStyle";
 import Loading from "./Loading";
@@ -89,7 +89,7 @@ function buildLegend(dataSeries: {name: string, data: { x: Date; y: number }[]}[
 
 const RankChart: React.FC<IRankChartProps> = ({steamId, gameMode}) => {
   const [selectedDomain, setSelectedDomain] = useState<{x:DomainTuple, y: DomainTuple} | undefined>(undefined);
-  const { loading, error, data = {oneVone: [], team: [], dm: [], teamDm: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
+  let { loading, error, data = {oneVone: [], team: [], dm: [], teamDm: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
   const VictoryZoomVoronoiContainer = createContainer<VictoryZoomContainerProps, VictoryVoronoiContainerProps>("zoom", "voronoi");
   let plot = <></>;
   if(dataAvailable(data)){

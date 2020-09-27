@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {IPlayerInfoWrap} from "./Types";
 import ReactCountryFlag from 'react-country-flag';
 import Select from '@material-ui/core/Select';

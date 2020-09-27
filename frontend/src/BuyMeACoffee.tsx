@@ -2,7 +2,7 @@ import React from "react";
 
 const BMC: React.FC = () => {
   return <>
-    <a className="bmc-btn" target="_blank" href="http://buymeacoffee.com/rahien">
+    <a className="bmc-btn" target="_blank" rel="noopener noreferrer" href="http://buymeacoffee.com/rahien">
       <svg viewBox="0 0 884 1279" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M791.109 297.518L790.231 297.002L788.201 296.383C789.018 297.072 790.04 297.472 791.109 297.518Z" fill="#0D0C22"></path>
         <path d="M803.896 388.891L802.916 389.166L803.896 388.891Z" fill="#0D0C22"></path>
