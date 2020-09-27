@@ -36,11 +36,12 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
     const xyDataTeams = dataTimestampsToDates(data.team);
     const styles = getStyles();
     plot = <div className="chart-wrap">
+      <h2>Rank Over Time</h2>
       <VictoryChart
         theme={VictoryTheme.material}
         scale={{x: "time"}}
         domainPadding={20}
-        padding={{top:50, bottom:50, left: 50, right: 0}}
+        padding={{top:10, bottom:30, left: 38, right: 0}}
         containerComponent={
           <VictoryZoomVoronoiContainer
             voronoiBlacklist={["line-1v1", "line-teams"]}
@@ -69,13 +70,8 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
           />
         }
       >
-        <VictoryLabel x={10} y={10} style={styles.oneVoneLabel}
-                      text={"One v. One Rating"}
-        />
-        <VictoryLabel x={10} y={30} style={styles.teamsLabel}
-                      text={"Teams Rating"}
-        />
-
+        <VictoryAxis style={styles.axis}/>
+        <VictoryAxis dependentAxis style={styles.axis}/>
         <VictoryLine name="line-1v1" style={styles.oneVone} data={xyDataOneVOne}/>
         <VictoryScatter name="scatter-1v1" size={2.5} style={styles.oneVoneScatter} data={xyDataOneVOne} />
         <VictoryLine name="line-teams" style={styles.teams} data={xyDataTeams}/>
@@ -83,7 +79,7 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
       </VictoryChart>
       <VictoryChart
         height={80}
-        padding={{top:0, bottom:50, left: 50, right: 0}}
+        padding={{top:0, bottom:30, left: 38, right: 0}}
         domainPadding={5}
         theme={VictoryTheme.material}
         scale={{x: "time"}}
@@ -98,8 +94,26 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
       >
         <VictoryLine name="small-1v1" style={styles.oneVoneSmall} data={xyDataOneVOne}/>
         <VictoryLine name="small-teams" style={styles.teamsSmall} data={xyDataTeams}/>
-        <VictoryAxis/>
+        <VictoryAxis style={styles.axis}/>
       </VictoryChart>
+      <div className="legend">
+        <div className="rm1v1">
+          <div className="color"></div>
+          <label>Random Map 1v1</label>
+        </div>
+        <div className="rmteam">
+          <div className="color"></div>
+          <label>Random Map Teams</label>
+        </div>
+        <div className="dm1v1">
+          <div className="color"></div>
+          <label>Death Match 1v1</label>
+        </div>
+        <div className="dmteam">
+          <div className="color"></div>
+          <label>Death Match 1v1</label>
+        </div>
+      </div>
     </div>
 
   }

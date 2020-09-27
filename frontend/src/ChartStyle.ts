@@ -8,6 +8,11 @@ export default function getStyles()
     red: RED_COLOR,
     blue: BLUE_COLOR,
     white: WHITE_COLOR,
+    axis: {
+      tickLabels: {
+        fontSize: 10
+      }
+    },
     oneVoneLabel: {
       fill: BLUE_COLOR,
       fontFamily: "inherit",

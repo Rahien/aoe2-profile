@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  > .profile {
+    padding-top: 60px;
+  }
 }
 
 .App-logo {
@@ -38,17 +41,73 @@
 }
 
 .chart-wrap {
-  width: 800px;
+  width: 580px;
+  h3, h2 {
+    margin-bottom: 0;
+    margin-left: 38px;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 70px;
+
+    > * {
+      width: 50%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0.6em;
+      box-sizing: border-box;
+      font-weight: bold;
+      font-size: 0.8em;
+    }
+
+    .color {
+      width: 15px;
+      height: 15px;
+      margin-right: 1em;
+      background: #3f49cc;
+      border-radius: 2px;
+      border: solid 2px #91a3ae;
+    }
+
+    .rmteam .color {
+      background: #ec1c27;
+    }
+
+    .dm1v1 .color {
+      background: #0afc05;
+    }
+
+    .dmteam .color {
+      background: #fbfd15;
+    }
+  }
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
 }
 
 
 .civ-icon {
   background-image: url("/aoe2-civs.png");
   background-repeat: no-repeat;
-  width: 148px;
-  height: 148px;
+  width: 37px;
+  height: 37px;
   background-position-x: 0px;
   background-position-y: 0px;
+  background-size: 700%;
+}
+.map-icon {
+  background-image: url("/aoe2-maps.png");
+  background-repeat: no-repeat;
+  width: 40.3px;
+  height: 40.3px;
+  background-position-x: 0px;
+  background-position-y: 0px;
+  background-size: 1000%;
 }
 .civ-icon-with-label {
   display: flex;
@@ -59,12 +118,174 @@
   font-size: 1.2em;
   width: 148px;
 }
+.wrap-960 {
+  width: 960px;
+  margin: 0 auto;
+}
 body{
-  background: black;
+  background: #111111;
+  color: white;
 }
 .player-header {
-  display: flex;
   color: white;
-  justify-content: space-between;
   padding: 1em;
+  font-weight: bold;
+  background: #222222;
+  border-bottom: solid 2px #111111;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  top: 0;
+
+  .wrap-960 {
+    display: flex;
+    justify-content: space-between;
+
+    .player-main {
+      display: flex;
+      font-size: 1.3em;
+      align-items: center;
+
+      .player-name {
+        margin-left: 0.5em;
+      }
+    }
+
+    span.games-detail {
+      font-weight: normal;
+      font-size: 0.7em;
+    }
+
+    .games-played {
+      text-align: right;
+    }
+
+    .games-played-total > *:first-child {
+      margin-right: 0.5em;
+    }
+  }
+}
+.civ-table, .map-table {
+  .civ-icon {
+    margin-right: 0.5em;
+  }
+  .civ-with-name {
+    display: flex;
+    align-items: center;
+  }
+
+  th {
+    text-align: left;
+  }
+}
+
+.map-with-name {
+  display: flex;
+  align-items: center;
+  .map-icon {
+    margin-right: 1em;
+  }
+}
+
+table {
+  background: #222222;
+  padding-right: 0;
+  border-collapse: collapse;
+  width: 100%;
+
+  th:nth-child(2), th:nth-child(3) {
+    width: 100px;
+    text-align: center;
+  }
+
+  .map-with-name {
+    display: flex;
+    align-items: center;
+  }
+
+  .map-with-name .map-icon {
+    margin-right: 1em;
+  }
+
+  th:nth-child(2), th:nth-child(3) {
+    width: 100px;
+    text-align: center;
+  }
+  td, th {
+    border: solid 1px black;
+    border-left: none;
+    border-right: none;
+  }
+
+  td:first-child, th:first-child {
+    padding-left: 1em;
+  }
+
+  th {
+    padding: 1em 0;
+  }
+}
+.map-table {
+  td {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}
+.aoe2-profile {
+  font-size: 1.7em;
+}
+.game-content-useage-notice{
+  font-size: 0.7em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  text-align: left;
+}
+.stats {
+  margin-left: 60px;
+  text-align: left;
+  margin-top: 1em;
+
+  > * {
+    margin-bottom: 1em;
+  }
+
+  .games-played {
+    display: flex;
+    align-items: center;
+  }
+
+  .games-played-total {
+    flex-grow: 1;
+  }
+
+  span.games-detail {
+    font-size: 0.7em;
+  }
+
+  label {
+    margin-right: 0.5em;
+  }
+}
+.display-none {
+  display: none;
+}
+.civ-icon-with-label {
+  display: flex;
+  flex-direction: row;
+  background: #222;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0.3em 0.5em;
+  box-sizing: border-box;
+  margin-top: 0.5em;
+  font-weight: normal;
+  font-size: 1em;
+  height: 55px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.favorite-civ, .favorite-map {
+  margin-right: 0.5em;
+  flex-grow: 1;
 }

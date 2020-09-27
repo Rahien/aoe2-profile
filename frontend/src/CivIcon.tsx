@@ -23,7 +23,7 @@ const civPositions:any = {
   "spanish": {x: 1, y: 2},
   "khmer": {x: 2, y: 2},
   "celts": {x: 3, y: 2},
-  "ethiopeans": {x: 4, y: 2},
+  "ethiopians": {x: 4, y: 2},
   "italians": {x: 5, y: 2},
   "cumans": {x: 6, y: 2},
   "vikings": {x: 0, y: 3},
@@ -45,8 +45,8 @@ const civPositions:any = {
 const CivIcon: React.FC<ICivIconProps> = ({civ}) => {
   const position = civPositions[civ.toLowerCase()];
   const style = {
-    backgroundPositionY: `${position.y * -148}px`,
-    backgroundPositionX: `${position.x * -148}px`
+    backgroundPositionY: `${position.y * -37}px`,
+    backgroundPositionX: `${position.x * -37}px`
   }
   const classNames= `civ-icon ${civ}`;
   return <div className={classNames} style={style}></div>
