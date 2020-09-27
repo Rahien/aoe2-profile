@@ -13,8 +13,17 @@ interface IRankAtTime {
   timestamp: number
 }
 
-const dataAvailable = (data: {oneVone:IRankAtTime[], team:IRankAtTime[]}) => {
-  return data && (data.oneVone.length > 0 || data.team.length > 0);
+const dataAvailable = (data:any) => {
+  if(!data){
+    return false;
+  }
+  let hasData = false;
+  ['oneVone', 'team', 'dm', 'teamDm'].forEach((key) => {
+    if(data[key] && data[key].length > 0){
+      hasData = true;
+    }
+  });
+  return hasData;
 }
 
 const dataTimestampsToDates = (data:IRankAtTime[]) => {
@@ -28,12 +37,14 @@ interface IRankChartProps {
 }
 const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
   const [selectedDomain, setSelectedDomain] = useState<{x:DomainTuple, y: DomainTuple} | undefined>(undefined);
-  const { loading, error, data = {oneVone: [], team: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
+  const { loading, error, data = {oneVone: [], team: [], dm: [], teamDm: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
   const VictoryZoomVoronoiContainer = createContainer<VictoryZoomContainerProps, VictoryVoronoiContainerProps>("zoom", "voronoi");
   let plot = <></>;
   if(dataAvailable(data)){
     const xyDataOneVOne = dataTimestampsToDates(data.oneVone);
     const xyDataTeams = dataTimestampsToDates(data.team);
+    const xyDataOneVOneDM = dataTimestampsToDates(data.dm);
+    const xyDataTeamsDM = dataTimestampsToDates(data.teamDm);
     const styles = getStyles();
     plot = <div className="chart-wrap">
       <h2>Rank Over Time</h2>
@@ -44,7 +55,7 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
         padding={{top:10, bottom:30, left: 38, right: 0}}
         containerComponent={
           <VictoryZoomVoronoiContainer
-            voronoiBlacklist={["line-1v1", "line-teams"]}
+            voronoiBlacklist={["line-1v1", "line-teams", "line-dm", "line-dmteams"]}
             zoomDimension="x"
             zoomDomain={selectedDomain}
             allowZoom={false}
@@ -62,9 +73,15 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
               pointerLength={5}
               flyoutStyle={{
                 fill: ({datum}) => {
-                  return datum.childName === "scatter-teams"? styles.red : styles.blue
+                  const colors:any = {
+                    "scatter-teams": styles.red,
+                    "scatter-teamsdm": styles.yellow,
+                    "scatter-1v1": styles.blue,
+                    "scatter-1v1dm": styles.green
+                  };
+                  return colors[datum.childName] || styles.blue;
                 },
-                stroke: styles.white,
+                stroke: styles.black,
                 strokeWidth: 0.5,
               }}/>}
           />
@@ -76,6 +93,10 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
         <VictoryScatter name="scatter-1v1" size={2.5} style={styles.oneVoneScatter} data={xyDataOneVOne} />
         <VictoryLine name="line-teams" style={styles.teams} data={xyDataTeams}/>
         <VictoryScatter name="scatter-teams" size={2.5} style={styles.teamsScatter} data={xyDataTeams} />
+        <VictoryLine name="line-dm" style={styles.oneVoneDm} data={xyDataOneVOneDM}/>
+        <VictoryScatter name="scatter-1v1dm" size={2.5} style={styles.oneVoneScatterDm} data={xyDataOneVOneDM} />
+        <VictoryLine name="line-dmteams" style={styles.teamsDm} data={xyDataTeamsDM}/>
+        <VictoryScatter name="scatter-teamsdm" size={2.5} style={styles.teamsScatterDm} data={xyDataTeamsDM} />
       </VictoryChart>
       <VictoryChart
         height={80}
@@ -94,6 +115,8 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
       >
         <VictoryLine name="small-1v1" style={styles.oneVoneSmall} data={xyDataOneVOne}/>
         <VictoryLine name="small-teams" style={styles.teamsSmall} data={xyDataTeams}/>
+        <VictoryLine name="small-1v1dm" style={styles.oneVoneSmallDm} data={xyDataOneVOneDM}/>
+        <VictoryLine name="small-teamsdm" style={styles.teamsSmallDm} data={xyDataTeamsDM}/>
         <VictoryAxis style={styles.axis}/>
       </VictoryChart>
       <div className="legend">

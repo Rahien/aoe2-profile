@@ -12,18 +12,37 @@ interface IMatchStats {
   userId: string,
 }
 
+const cache:any = {
+  history: null,
+  matches: null
+}
+
+
 const getRankHistory: (req:Request) => Promise<any> = async (req) => {
   const params = req.query as unknown as IRankParams;
   const randomMap = 3;
   const teamRandomMap = 4;
+  const dm = 1;
+  const teamDm = 2;
+  if(cache.history){
+    return cache.history;
+  }
   const result = await Promise.all([
     axios.get(`https://aoe2.net/api/player/ratinghistory?game=aoe2de&leaderboard_id=${randomMap}&steam_id=${params.userId}&count=${params.count}`),
-    axios.get(`https://aoe2.net/api/player/ratinghistory?game=aoe2de&leaderboard_id=${teamRandomMap}&steam_id=${params.userId}&count=${params.count}`)
+    axios.get(`https://aoe2.net/api/player/ratinghistory?game=aoe2de&leaderboard_id=${teamRandomMap}&steam_id=${params.userId}&count=${params.count}`),
+    axios.get(`https://aoe2.net/api/player/ratinghistory?game=aoe2de&leaderboard_id=${dm}&steam_id=${params.userId}&count=${params.count}`),
+    axios.get(`https://aoe2.net/api/player/ratinghistory?game=aoe2de&leaderboard_id=${teamDm}&steam_id=${params.userId}&count=${params.count}`)
   ]);
-  return {
+
+  const toCache = {
     "oneVone": result[0].data || [],
-    "team": result[1].data || []
+    "team": result[1].data || [],
+    "dm": result[2].data || [],
+    "teamDm": result[3].data || []
+
   };
+  cache.history = toCache;
+  return toCache;
 }
 
 interface IWinLossDrillDown {
@@ -66,6 +85,9 @@ function ensurePath(dict:IWinLossPerRatingDrillDown, path: string):void {
 
 const getMatchStats: (req:Request) => Promise<any> = async (req) => {
   const params = req.query as unknown as IMatchStats;
+  if(cache.matches){
+    return cache.matches;
+  }
   const [matches, stringsResult] = await Promise.all([
     axios.get(`https://aoe2.net/api/player/matches?steam_id=${params.userId}&count=1000`),
     axios.get(`https://aoe2.net/api/strings`)
@@ -109,7 +131,7 @@ const getMatchStats: (req:Request) => Promise<any> = async (req) => {
     return currentPlayer.steam_id === params.userId;
   });
 
-  return {
+  const toCache = {
     name: player.name,
     country: player.country,
     perCiv: mapKeysToStrings(winsPerCivPerLeaderboardId, strings, ["leaderboard", "civ"]),
@@ -118,6 +140,8 @@ const getMatchStats: (req:Request) => Promise<any> = async (req) => {
     totalMatchLength: mapKeysToStrings(averageMatchLengthPerLeaderboardId, strings, ['leaderboard']),
     numberOfGames: mapKeysToStrings(gamesPerLeaderboardId, strings, ['leaderboard'])
   };
+  cache.matches = toCache;
+  return toCache;
 }
 
 function countWinOrLoss(won:boolean, leaderboard:number, differentiator:number, winLossCounter:IWinLossPerRatingDrillDown):void{
