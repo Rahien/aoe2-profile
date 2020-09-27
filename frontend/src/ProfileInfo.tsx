@@ -5,9 +5,8 @@ import PlayerHeader from "./PlayerHeader";
 import {IPlayerInfo} from "./Types";
 import WinLossBreakdown from "./WinLossBreakdown";
 import Loading from "./Loading";
-import {CivIconWithLabel} from "./CivIcon";
-import {MapIconWithLabel} from "./MapIcon";
 import MapWinLossBreakdown from "./MapWinLossBreakdown";
+import Favorites from "./Favorites";
 
 const ProfileInfo: React.FC = () => {
   const [steamId] = useState<string>("76561198006616324");
@@ -56,16 +55,7 @@ const ProfileInfo: React.FC = () => {
             <label>Average Game Duration:</label>
             <span>{averageGameLengthHours > 0?averageGameLengthHours:""}:{averageGameLengthMinutes}:{averageGameLengthSeconds}</span>
           </div>
-          <div className="favorites flex">
-            <div className="favorite-civ">
-              <label>Favorite Civ</label>
-              <CivIconWithLabel civ="Franks"/>
-            </div>
-            <div className="favorite-map">
-              <label>Favorite Map</label>
-              <MapIconWithLabel map="Arabia"/>
-            </div>
-          </div>
+          <Favorites playerInfo={playerInfo} gameMode={gameMode}/>
         </div>
         <RankChart steamId={steamId} gameMode={gameMode}/>
       </div>

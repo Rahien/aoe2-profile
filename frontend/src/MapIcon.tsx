@@ -73,9 +73,12 @@ const mapPositions:string[] = [
 
 const MapIcon: React.FC<IMapIconProps> = ({map}) => {
 
-  const position = mapPositions.findIndex((item) => {
+  let position = mapPositions.findIndex((item) => {
     return item == map.toLowerCase();
   });
+  if(position < 0){
+    position = 34;
+  }
   const positionX = position % 10;
   const positionY = Math.floor(position/10);
   const style = {

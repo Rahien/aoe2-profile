@@ -7,7 +7,7 @@ const MapWinLossBreakdown: React.FC<IPlayerInfoWrap> = ({playerInfo, gameMode}) 
   const perMap = combineWinCounts(gameMode || "all", playerInfo.perMap);
   return <>
     <h2>Win Percentage Per Map</h2>
-    <MapTable winCounts={perMap} sortBy="played"/>;
+    <MapTable winCounts={perMap} sortBy="played"/>
   </>
 }
 
