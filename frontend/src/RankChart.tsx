@@ -79,7 +79,7 @@ function buildLegend(dataSeries: {name: string, data: { x: Date; y: number }[]}[
     "teamDm": "Death Match Team"
   }
   return dataSeries.map(({name}) => {
-    const className = `legend ${name}`;
+    const className = `legend-item ${name}`;
     return <div className={className}>
       <div className="color"></div>
       <label>{translations[name]}</label>
