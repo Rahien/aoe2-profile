@@ -25,7 +25,7 @@ export default function getStyles()
       fontSize: 12,
       fontStyle: "italic"
     },
-    oneVoneLabelDm: {
+    dmLabel: {
       fill: GREEN_COLOR,
       fontFamily: "inherit",
       fontSize: 12,
@@ -40,44 +40,44 @@ export default function getStyles()
     oneVoneScatter: {
       data: {fill: BLUE_COLOR}, labels: {fill:BLACK_COLOR}
     },
-    oneVoneDm: {
+    dm: {
       data: {stroke: GREEN_COLOR, strokeWidth: 2}
     },
-    oneVoneSmallDm: {
+    dmSmall: {
       data: {stroke: GREEN_COLOR, strokeWidth: 1}
     },
-    oneVoneScatterDm: {
+    dmScatter: {
       data: {fill: GREEN_COLOR}, labels: {fill:BLACK_COLOR}
     },
 
-    teamsLabel: {
+    teamLabel: {
       fill: RED_COLOR,
       fontFamily: "inherit",
       fontSize: 12,
       fontStyle: "italic"
     },
-    teams: {
+    team: {
       data: {stroke: RED_COLOR, strokeWidth: 2}
     },
-    teamsSmall: {
+    teamSmall: {
       data: {stroke: RED_COLOR, strokeWidth: 1}
     },
-    teamsScatter: {
+    teamScatter: {
       data: {fill: RED_COLOR}, labels: {fill: BLACK_COLOR}
     },
-    teamsLabelDm: {
+    teamDmLabel: {
       fill: YELLOW_COLOR,
       fontFamily: "inherit",
       fontSize: 12,
       fontStyle: "italic"
     },
-    teamsDm: {
+    teamDm: {
       data: {stroke: YELLOW_COLOR, strokeWidth: 2}
     },
-    teamsSmallDm: {
+    teamDmSmall: {
       data: {stroke: YELLOW_COLOR, strokeWidth: 1}
     },
-    teamsScatterDm: {
+    teamDmScatter: {
       data: {fill: YELLOW_COLOR}, labels: {fill: BLACK_COLOR}
     },
     brush: {

@@ -52,6 +52,9 @@
     flex-wrap: wrap;
     margin-left: 70px;
 
+    .legend {
+      margin-left: 0;
+    }
     > * {
       width: 50%;
       display: flex;
@@ -72,15 +75,15 @@
       border: solid 2px #91a3ae;
     }
 
-    .rmteam .color {
+    .team .color {
       background: #ec1c27;
     }
 
-    .dm1v1 .color {
+    .dm .color {
       background: #0afc05;
     }
 
-    .dmteam .color {
+    .teamDm .color {
       background: #fbfd15;
     }
   }
@@ -288,4 +291,25 @@ table {
 .favorite-civ, .favorite-map {
   margin-right: 0.5em;
   flex-grow: 1;
+}
+
+.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded {
+  background: #222222;
+  color: white;
+}
+
+.MuiInputBase-root.MuiInput-root.MuiInput-underline {
+  color: white;
+  border-color: white;
+}
+
+svg.MuiSvgIcon-root.MuiSelect-icon {
+  color: white;
+}
+
+div.MuiInput-underline:before {
+  border-color: white;
+}
+h2 {
+  font-size: 1.2em;
 }

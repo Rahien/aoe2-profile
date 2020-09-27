@@ -12,11 +12,12 @@ import {MapIconWithLabel} from "./MapIcon";
 const ProfileInfo: React.FC = () => {
   const [steamId] = useState<string>("76561198006616324");
   const { loading, error, data = null } = useFetch(`/match-stats?userId=${steamId}`, {}, [steamId]);
+  const [gameMode, setGameMode] = useState<string>('all');
   if(!data) {
     return <Loading/>
   }
   const playerInfo = data as unknown as IPlayerInfo;
-  const header = <PlayerHeader playerInfo={playerInfo}/>;
+  const header = <PlayerHeader playerInfo={playerInfo} gameMode={gameMode} onGameModeChange={setGameMode}/>;
   const winLossBreakdown = <WinLossBreakdown playerInfo={playerInfo}/>;
   const mapBreakdown = <MapTable winCounts={playerInfo.perMap['1v1 Random Map']} sortBy="played"/>;
   let totalGamesPlayed = 0;
@@ -66,7 +67,7 @@ const ProfileInfo: React.FC = () => {
             </div>
           </div>
         </div>
-        <RankChart steamId={steamId}/>
+        <RankChart steamId={steamId} gameMode={gameMode}/>
       </div>
 
       {error && 'Error!'}

@@ -33,19 +33,70 @@ const dataTimestampsToDates = (data:IRankAtTime[]) => {
 }
 
 interface IRankChartProps {
-  steamId: string
+  steamId: string,
+  gameMode: string
 }
-const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
+
+function buildDataSeries(data: any , gameMode:string): {name: string, data: { x: Date; y: number }[]}[]{
+  let keys = [gameMode]
+  if(gameMode === "all"){
+    keys = ['oneVone', 'team', 'dm', 'teamDm'];
+  }
+  return keys.map((key) => {
+    if(!data[key] || data[key].length === 0){
+      return null;
+    }
+    return {data: dataTimestampsToDates(data[key]), name: key};
+  }).filter((item) => {
+    return !!item;
+  }) as {name: string, data: { x: Date; y: number }[]}[];
+}
+
+function buildMainCharts(dataSeries: {name: string, data: { x: Date; y: number }[]}[], styles:any){
+  return dataSeries.map(({data, name}) => {
+    const lineName = `line-${name}`;
+    const scatterName = `scatter-${name}`;
+    return [
+      <VictoryLine name={lineName} style={styles[name]} data={data}/>,
+      <VictoryScatter name={scatterName} size={2.5} style={styles[`${name}Scatter`]} data={data} />
+    ]
+  }).flat();
+}
+
+function buildSmallCharts(dataSeries: {name: string, data: { x: Date; y: number }[]}[], styles: any){
+  return dataSeries.map(({data, name}) => {
+    const lineName = `small-${name}`;
+    return <VictoryLine name={lineName} style={styles[`${name}Small`]} data={data}/>
+  });
+}
+
+function buildLegend(dataSeries: {name: string, data: { x: Date; y: number }[]}[], styles: any){
+  const translations:{[id:string]:string} = {
+    "oneVone": "Random Map 1v1",
+    "team": "Random Map Team",
+    "dm": "Death Match 1v1",
+    "teamDm": "Death Match Team"
+  }
+  return dataSeries.map(({name}) => {
+    const className = `legend ${name}`;
+    return <div className={className}>
+      <div className="color"></div>
+      <label>{translations[name]}</label>
+    </div>
+  });
+}
+
+const RankChart: React.FC<IRankChartProps> = ({steamId, gameMode}) => {
   const [selectedDomain, setSelectedDomain] = useState<{x:DomainTuple, y: DomainTuple} | undefined>(undefined);
   const { loading, error, data = {oneVone: [], team: [], dm: [], teamDm: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
   const VictoryZoomVoronoiContainer = createContainer<VictoryZoomContainerProps, VictoryVoronoiContainerProps>("zoom", "voronoi");
   let plot = <></>;
   if(dataAvailable(data)){
-    const xyDataOneVOne = dataTimestampsToDates(data.oneVone);
-    const xyDataTeams = dataTimestampsToDates(data.team);
-    const xyDataOneVOneDM = dataTimestampsToDates(data.dm);
-    const xyDataTeamsDM = dataTimestampsToDates(data.teamDm);
+    const dataSeries = buildDataSeries(data, gameMode);
     const styles = getStyles();
+    const mainCharts = buildMainCharts(dataSeries, styles);
+    const smallCharts = buildSmallCharts(dataSeries, styles);
+    const legend = buildLegend(dataSeries, styles);
     plot = <div className="chart-wrap">
       <h2>Rank Over Time</h2>
       <VictoryChart
@@ -55,7 +106,7 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
         padding={{top:10, bottom:30, left: 38, right: 0}}
         containerComponent={
           <VictoryZoomVoronoiContainer
-            voronoiBlacklist={["line-1v1", "line-teams", "line-dm", "line-dmteams"]}
+            voronoiBlacklist={["line-oneVone", "line-team", "line-dm", "line-teamDm"]}
             zoomDimension="x"
             zoomDomain={selectedDomain}
             allowZoom={false}
@@ -74,10 +125,10 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
               flyoutStyle={{
                 fill: ({datum}) => {
                   const colors:any = {
-                    "scatter-teams": styles.red,
-                    "scatter-teamsdm": styles.yellow,
-                    "scatter-1v1": styles.blue,
-                    "scatter-1v1dm": styles.green
+                    "scatter-team": styles.red,
+                    "scatter-teamDm": styles.yellow,
+                    "scatter-oneVone": styles.blue,
+                    "scatter-dm": styles.green
                   };
                   return colors[datum.childName] || styles.blue;
                 },
@@ -89,14 +140,7 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
       >
         <VictoryAxis style={styles.axis}/>
         <VictoryAxis dependentAxis style={styles.axis}/>
-        <VictoryLine name="line-1v1" style={styles.oneVone} data={xyDataOneVOne}/>
-        <VictoryScatter name="scatter-1v1" size={2.5} style={styles.oneVoneScatter} data={xyDataOneVOne} />
-        <VictoryLine name="line-teams" style={styles.teams} data={xyDataTeams}/>
-        <VictoryScatter name="scatter-teams" size={2.5} style={styles.teamsScatter} data={xyDataTeams} />
-        <VictoryLine name="line-dm" style={styles.oneVoneDm} data={xyDataOneVOneDM}/>
-        <VictoryScatter name="scatter-1v1dm" size={2.5} style={styles.oneVoneScatterDm} data={xyDataOneVOneDM} />
-        <VictoryLine name="line-dmteams" style={styles.teamsDm} data={xyDataTeamsDM}/>
-        <VictoryScatter name="scatter-teamsdm" size={2.5} style={styles.teamsScatterDm} data={xyDataTeamsDM} />
+        {mainCharts}
       </VictoryChart>
       <VictoryChart
         height={80}
@@ -113,29 +157,11 @@ const RankChart: React.FC<IRankChartProps> = ({steamId}) => {
           />
         }
       >
-        <VictoryLine name="small-1v1" style={styles.oneVoneSmall} data={xyDataOneVOne}/>
-        <VictoryLine name="small-teams" style={styles.teamsSmall} data={xyDataTeams}/>
-        <VictoryLine name="small-1v1dm" style={styles.oneVoneSmallDm} data={xyDataOneVOneDM}/>
-        <VictoryLine name="small-teamsdm" style={styles.teamsSmallDm} data={xyDataTeamsDM}/>
+        {smallCharts}
         <VictoryAxis style={styles.axis}/>
       </VictoryChart>
       <div className="legend">
-        <div className="rm1v1">
-          <div className="color"></div>
-          <label>Random Map 1v1</label>
-        </div>
-        <div className="rmteam">
-          <div className="color"></div>
-          <label>Random Map Teams</label>
-        </div>
-        <div className="dm1v1">
-          <div className="color"></div>
-          <label>Death Match 1v1</label>
-        </div>
-        <div className="dmteam">
-          <div className="color"></div>
-          <label>Death Match 1v1</label>
-        </div>
+        {legend}
       </div>
     </div>
 

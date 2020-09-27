@@ -9,7 +9,9 @@ export interface IPlayerInfo {
 }
 
 export interface IPlayerInfoWrap {
-  playerInfo: IPlayerInfo
+  playerInfo: IPlayerInfo,
+  gameMode?: string,
+  onGameModeChange?: (newGameType:string) => void
 }
 
 export interface IWinCounts {[id:string]: {wins: number, losses: number}}
