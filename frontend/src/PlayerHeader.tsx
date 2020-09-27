@@ -3,6 +3,7 @@ import {IPlayerInfoWrap} from "./Types";
 import ReactCountryFlag from 'react-country-flag';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import BMC from "./BuyMeACoffee";
 
 
 const PlayerHeader: React.FC<IPlayerInfoWrap> = ({playerInfo, gameMode, onGameModeChange}) => {
@@ -22,16 +23,20 @@ const PlayerHeader: React.FC<IPlayerInfoWrap> = ({playerInfo, gameMode, onGameMo
         <div className="player-name">{playerInfo.name}</div>
       </div>
       <div className="aoe2-profile">AoE2 Profile</div>
-      <Select
-        value={gameMode}
-        onChange={handleGameModeChange}
-      >
-        <MenuItem value="all">All Game Modes</MenuItem>
-        <MenuItem value="oneVone">RM 1v1</MenuItem>
-        <MenuItem value="team">RM Teams</MenuItem>
-        <MenuItem value="dm">DM 1v1</MenuItem>
-        <MenuItem value="teamDm">DM Teams</MenuItem>
-      </Select>
+      <div className="flex">
+        <BMC/>
+        <Select
+          value={gameMode}
+          onChange={handleGameModeChange}
+        >
+          <MenuItem value="all">All Game Modes</MenuItem>
+          <MenuItem value="oneVone">RM 1v1</MenuItem>
+          <MenuItem value="team">RM Teams</MenuItem>
+          <MenuItem value="dm">DM 1v1</MenuItem>
+          <MenuItem value="teamDm">DM Teams</MenuItem>
+        </Select>
+      </div>
+
     </div>
   </div>;
 }

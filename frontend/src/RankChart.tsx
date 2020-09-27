@@ -3,6 +3,7 @@ import useFetch from "use-http/dist";
 import { VictoryLine, VictoryChart,createContainer, DomainTuple, VictoryTheme, VictoryScatter, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushContainer, VictoryZoomContainerProps, VictoryVoronoiContainerProps, VictoryAxis, VictoryLabel } from 'victory';
 import moment from 'moment';
 import getStyles from "./ChartStyle";
+import Loading from "./Loading";
 
 interface IRankAtTime {
   rating: number,
@@ -168,7 +169,7 @@ const RankChart: React.FC<IRankChartProps> = ({steamId, gameMode}) => {
   }
   return <div className="profile">
     {error && 'Error!'}
-    {loading && 'Loading...'}
+    {loading && <Loading/>}
     {plot}
   </div>;
 }

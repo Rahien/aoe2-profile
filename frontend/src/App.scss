@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   > .profile {
-    padding-top: 60px;
+    padding-top: 70px;
   }
 }
 
@@ -312,4 +312,15 @@ div.MuiInput-underline:before {
 }
 h2 {
   font-size: 1.2em;
+}
+
+a.bmc-btn {
+  font-size: 20px;
+  height: 42px;
+  margin-right: 1em;
+  padding:  0 20px;
+}
+
+.bmc-btn-container{
+  display: none;
 }
