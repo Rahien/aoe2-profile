@@ -62,6 +62,7 @@ interface IMatch {
 }
 
 interface IMatchPlayer {
+  team: number;
   steam_id?: string,
   name: string,
   country: string,
@@ -113,13 +114,14 @@ const getMatchStats: (req:Request) => Promise<any> = async (req) => {
     const myPlayer = match.players[mySpot];
     const won = myPlayer.won;
     const civ = myPlayer.civ;
+    const myTeam = myPlayer.team;
     const map = match.map_type;
     gamesPerLeaderboardId[leaderBoardId] = (gamesPerLeaderboardId[leaderBoardId] || 0) + 1;
     averageMatchLengthPerLeaderboardId[leaderBoardId] = (averageMatchLengthPerLeaderboardId[leaderBoardId] || 0) + matchLength;
     countWinOrLoss(won, leaderBoardId, civ, winsPerCivPerLeaderboardId);
     countWinOrLoss(won, leaderBoardId, map, winsPerMapPerLeaderboardId);
-    const enemies = match.players.filter((_, index) => {
-      return index !== mySpot;
+    const enemies = match.players.filter((otherPlayer) => {
+      return otherPlayer.team !== myTeam;
     });
     enemies.forEach((enemy) => {
       countWinOrLoss(won, leaderBoardId, enemy.civ, winsPerEnemyCivPerLeaderboardId);

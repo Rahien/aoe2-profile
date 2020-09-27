@@ -18,7 +18,7 @@ const ProfileInfo: React.FC = () => {
   }
   const playerInfo = data as unknown as IPlayerInfo;
   const header = <PlayerHeader playerInfo={playerInfo} gameMode={gameMode} onGameModeChange={setGameMode}/>;
-  const winLossBreakdown = <WinLossBreakdown playerInfo={playerInfo}/>;
+  const winLossBreakdown = <WinLossBreakdown playerInfo={playerInfo} gameMode={gameMode}/>;
   const mapBreakdown = <MapTable winCounts={playerInfo.perMap['1v1 Random Map']} sortBy="played"/>;
   let totalGamesPlayed = 0;
 
