@@ -5,9 +5,9 @@ import PlayerHeader from "./PlayerHeader";
 import {IPlayerInfo} from "./Types";
 import WinLossBreakdown from "./WinLossBreakdown";
 import Loading from "./Loading";
-import MapTable from "./MapTable";
 import {CivIconWithLabel} from "./CivIcon";
 import {MapIconWithLabel} from "./MapIcon";
+import MapWinLossBreakdown from "./MapWinLossBreakdown";
 
 const ProfileInfo: React.FC = () => {
   const [steamId] = useState<string>("76561198006616324");
@@ -19,7 +19,7 @@ const ProfileInfo: React.FC = () => {
   const playerInfo = data as unknown as IPlayerInfo;
   const header = <PlayerHeader playerInfo={playerInfo} gameMode={gameMode} onGameModeChange={setGameMode}/>;
   const winLossBreakdown = <WinLossBreakdown playerInfo={playerInfo} gameMode={gameMode}/>;
-  const mapBreakdown = <MapTable winCounts={playerInfo.perMap['1v1 Random Map']} sortBy="played"/>;
+  const mapBreakdown = <MapWinLossBreakdown playerInfo={playerInfo} gameMode={gameMode}/>;
   let totalGamesPlayed = 0;
 
   Object.values(playerInfo.numberOfGames).forEach((count:number) => {
@@ -75,7 +75,6 @@ const ProfileInfo: React.FC = () => {
       {winLossBreakdown}
     </div>
     <div className="wrap-960">
-      <h2>Win Percentage Per Map</h2>
       {mapBreakdown}
     </div>
   </div>;
