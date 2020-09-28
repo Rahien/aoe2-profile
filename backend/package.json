@@ -1,14 +1,18 @@
 {
-  "name": "backend",
+  "name": "aoe2-profile-backend",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
+    "postinstall": "npm run build",
     "prestart": "npm run build",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "14.0.0"
   },
   "keywords": [],
   "author": "",
