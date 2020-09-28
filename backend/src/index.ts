@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Request, Response, Application } from 'express';
 const app:Application = express();
 const port = process.env.PORT || 8080;
+import path from 'path';
 
 interface IRankParams {
   userId: string,
@@ -68,20 +69,27 @@ function ensureKey(dict:IWinLossDrillDown|IWinLossPerRatingDrillDown, key:string
   dict[key] = dict[key] || {};
 }
 
-function ensurePath(dict:IWinLossPerRatingDrillDown, path: string):void {
-  const [first,second] = path.split(".");
+function ensurePath(dict:IWinLossPerRatingDrillDown, propertyPath: string):void {
+  const [first,second] = propertyPath.split(".");
   ensureKey(dict, first);
   return ensureKey(dict[first], second);
 }
 
+let stringsCache:IIDtranslations = null;
+
 const getMatchStats: (req:Request) => Promise<any> = async (req) => {
   const params = req.query as unknown as IMatchStats;
-  const [matches, stringsResult] = await Promise.all([
-    axios.get(`https://aoe2.net/api/player/matches?steam_id=${params.userId}&count=1000`),
-    axios.get(`https://aoe2.net/api/strings`)
-  ]);
-
-  const strings = stringsResult.data as unknown as IIDtranslations;
+  const start = new Date();
+  let strings = stringsCache;
+  if(strings === null){
+    strings = (await axios.get(`https://aoe2.net/api/strings`)).data as unknown as IIDtranslations;
+    stringsCache = strings
+  }
+  const matches = await axios.get(`https://aoe2.net/api/player/matches?game=aoe2de&start=0&steam_id=${params.userId}&count=1000`);
+  // @ts-ignore
+  const end = new Date() - start;
+  // tslint:disable-next-line:no-console
+  console.info('Execution time: %dms', end)
 
   const winsPerCivPerLeaderboardId: IWinLossPerRatingDrillDown= {};
   const winsPerMapPerLeaderboardId: IWinLossPerRatingDrillDown = {};
@@ -168,6 +176,12 @@ app.get( "/match-stats",  ( req: Request, res: Response ) => {
     res.send(result);
   });
 } );
+
+app.use(express.static('public'))
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+});
 
 app.listen( port, () => {
   // tslint:disable-next-line:no-console
