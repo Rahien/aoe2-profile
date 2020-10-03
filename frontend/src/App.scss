@@ -464,3 +464,115 @@ div#root {min-height: 100vh;}
   flex-direction: column;
 }
 
+.civ-table th:first-child {
+  width: 150px;
+}
+
+
+@media screen and (min-width: 1280px) {
+  .wrap-960 {
+    width: 1280px;
+  }
+  .chart-wrap {
+    width: 740px;
+  }
+  .main-panel {
+    min-width: 740px;
+  }
+  .civ-table th:first-child {
+    width: 280px;
+  }
+  .civ-table td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+
+.game-content-useage-notice a {
+  color: white;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+  .wrap-960 {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+
+  .chart-wrap {
+    width: 100%;
+  }
+
+
+  .player-header {
+    font-size: 0.6em;
+  }
+
+  .MuiInputBase-root.MuiInput-root.MuiInput-underline {
+    font-size: 0.7em;
+  }
+
+  .player-header {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .player-header .wrap-960 {
+    display: flex;
+    align-items: center;
+  }
+
+  .wrap-960.flex {
+    flex-direction: column;
+  }
+
+  .stats {
+    margin: 0;
+  }
+
+  a.bmc-btn {
+    font-size: 1em;
+    padding: 0.2em 0.5em;
+    height: 26px;
+    border-radius: 5px;
+  }
+
+  .bmc-btn svg {
+    height: 18px !important;
+  }
+  .player-header a.bmc-btn {
+    position: absolute;
+    top: 58px;
+    font-size: 1.7em;
+    height: 35px;
+    width: 120px;
+    right: 10px;
+    background-color: #222323 !important;
+  }
+
+  .MuiInputBase-root.MuiInput-root.MuiInput-underline {
+    font-size: 0.9em;
+  }
+
+  .player-header {
+    position: relative;
+  }
+
+  .App > .profile {
+    padding-top: 0;
+  }
+
+  .wrap-960.game-content-useage-notice:last-child {
+    margin-top: 0;
+  }
+
+  .games-played {
+    font-size: 0.6em;
+  }
+
+  .chart-wrap .legend {
+    margin-left: 0;
+  }
+}
