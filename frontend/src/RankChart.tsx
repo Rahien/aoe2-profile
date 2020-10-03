@@ -89,7 +89,7 @@ function buildLegend(dataSeries: {name: string, data: { x: Date; y: number }[]}[
 
 const RankChart: React.FC<IRankChartProps> = ({steamId, gameMode}) => {
   const [selectedDomain, setSelectedDomain] = useState<{x:DomainTuple, y: DomainTuple} | undefined>(undefined);
-  let { loading, error, data = {oneVone: [], team: [], dm: [], teamDm: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=100`, {}, [steamId]);
+  let { loading, error, data = {oneVone: [], team: [], dm: [], teamDm: []} } = useFetch(`/rank-history?userId=${steamId}&leaderboard=3&count=1000`, {}, [steamId]);
   const VictoryZoomVoronoiContainer = createContainer<VictoryZoomContainerProps, VictoryVoronoiContainerProps>("zoom", "voronoi");
   let plot = <></>;
   if(dataAvailable(data)){
