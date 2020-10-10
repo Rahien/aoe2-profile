@@ -165,6 +165,68 @@ function mapKeysToStrings<T>(dict:{[id:string]:T}|any, strings: IIDtranslations,
   return translated;
 }
 
+interface ISearchUserParams {
+  userName: string
+}
+interface IPlayerInfo {
+  rating: number,
+  steam_id: string,
+  name: string,
+  clan: string,
+  country: string,
+  games: number
+  last_match: number
+}
+
+const searchLeaderBoard = async function(leaderboardId: number, search: string){
+  const players = await axios.get(`https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=${leaderboardId}&search=${search}&count=100`);
+  const idToPlayer:{[id:string]:IPlayerInfo} = {};
+  players.data.leaderboard.forEach((player:IPlayerInfo) => {
+    idToPlayer[player.steam_id] = player;
+  });
+  return idToPlayer
+}
+
+const mergeLeaderboardSearches = function(leaderboardResults: { [playerId: string]: IPlayerInfo }[]){
+  const merged:{ [playerId: string]: any } = {};
+  leaderboardResults.forEach((result, leaderboardId) => {
+    Object.keys(result).map((playerId) => {
+      let mergedPlayer = merged[playerId];
+      let player = result[playerId];
+      if(!mergedPlayer){
+        mergedPlayer = {
+          steam_id: player.steam_id,
+          name: player.name,
+          clan: player.clan,
+          country: player.country,
+          games: player.games,
+          last_match: player.last_match
+        }
+        merged[playerId] =  mergedPlayer;
+      }else{
+        mergedPlayer.games += player.games;
+        mergedPlayer.last_match = Math.max(mergedPlayer.last_match, player.last_match);
+      }
+      mergedPlayer['rating_'+(leaderboardId+1)] = player.rating;
+    });
+  });
+  return merged;
+}
+
+const searchUser: (req:Request) => Promise<any> = async (req) => {
+  const params = req.query as unknown as ISearchUserParams;
+  const search = params.userName;
+  const leaderboardsToSearch = [1, 2, 3, 4];
+  const leaderboardResults = await Promise.all(leaderboardsToSearch.map((id) => {
+    return searchLeaderBoard(id, search);
+  }));
+
+  const merged = mergeLeaderboardSearches(leaderboardResults);
+  return Object.values(merged).filter((item) => {
+    return !!item.steam_id;
+  });
+}
+
 app.get( "/rank-history",  ( req: Request, res: Response ) => {
   getRankHistory(req).then((result) => {
     res.send(result);
@@ -173,6 +235,12 @@ app.get( "/rank-history",  ( req: Request, res: Response ) => {
 
 app.get( "/match-stats",  ( req: Request, res: Response ) => {
   getMatchStats(req).then((result) => {
+    res.send(result);
+  });
+} );
+
+app.get( "/search-user",  ( req: Request, res: Response ) => {
+  searchUser(req).then((result) => {
     res.send(result);
   });
 } );

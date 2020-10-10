@@ -5,6 +5,76 @@
   src: local('Cookie-Regular'), url(https://fonts.gstatic.com/s/cookie/v12/syky-y18lb0tSbf9kgqS1NDNpg.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+.select-user {
+  padding: 2em 1em;box-sizing: border-box;
+
+  a.player-row:hover .name {
+    text-decoration: underline;
+  }
+
+  a.player-row {
+    color: white;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 1em 2em;
+    background: #222;
+    margin-bottom: 0.5em;
+    box-sizing: border-box;
+
+    .rating_3,.rating_2 {
+      text-align: center;
+    }
+
+    .rating_4 {
+      text-align: right;
+    }
+
+    label {
+      font-size: 0.8em;
+      color: #666;
+    }
+    .main-info {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .name {
+      flex-grow: 1;
+      text-align: left;
+      font-size: 1.5em;
+    }
+
+    img {
+      margin-right: 1em;
+      font-size: 2em;
+    }
+
+    .games-info {
+      font-size: 0.7em;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-self: stretch;
+    }
+
+    .ratings {
+      display: flex;
+      font-size: 0.7em;
+      margin-top: 0.5em;
+      text-align: left;
+    }
+
+    .ratings > * {
+      flex-grow: 1;
+    }
+
+  }
+
+}
+
 
 .App {
   text-align: center;
@@ -34,6 +104,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
 
 .App-link {
   color: #61dafb;
@@ -376,6 +447,7 @@ a.bmc-btn {
     align-items: center;
   }
   .logo {
+    margin-top: 1em;
     font-size: 2em;
     font-weight: bold;
     color: white;

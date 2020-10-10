@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import ProfileInfo from "./ProfileInfo";
-import SelectUserId from "./SelectUserId";
+import SearchUser from "./SearchUser";
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +17,7 @@ function App() {
             <ProfileInfo/>
           </Route>
           <Route path="/">
-            <SelectUserId />
+            <SearchUser />
           </Route>
         </Switch>
       </Router>
