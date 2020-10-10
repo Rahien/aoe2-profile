@@ -135,9 +135,24 @@ const getMatchStats: (req:Request) => Promise<any> = async (req) => {
     perMap: mapKeysToStrings(winsPerMapPerLeaderboardId, strings, ["leaderboard", "map_type"]),
     perEnemyCiv: mapKeysToStrings(winsPerEnemyCivPerLeaderboardId, strings, ["leaderboard", "civ"]),
     totalMatchLength: mapKeysToStrings(averageMatchLengthPerLeaderboardId, strings, ['leaderboard']),
-    numberOfGames: mapKeysToStrings(gamesPerLeaderboardId, strings, ['leaderboard'])
+    numberOfGames: mapKeysToStrings(gamesPerLeaderboardId, strings, ['leaderboard']),
+    recentMatches: translateMatches(matches.data.slice(0, 5), strings)
   };
   return toCache;
+}
+
+function translateMatches(matches: any, strings: IIDtranslations){
+  matches.forEach((match:any) => {
+    match.map_type = strings.map_type.find((map) => {
+      return map.id === match.map_type;
+    }).string;
+    match.players.forEach((player:any) => {
+       player.civ = strings.civ.find((civ) => {
+         return civ.id === player.civ;
+       }).string;
+    });
+  });
+  return matches;
 }
 
 function countWinOrLoss(won:boolean, leaderboard:number, differentiator:number, winLossCounter:IWinLossPerRatingDrillDown):void{

@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import MapWinLossBreakdown from "./MapWinLossBreakdown";
 import Favorites from "./Favorites";
 import { useParams } from 'react-router-dom';
+import RecentMatches from "./RecentMatches";
 
 function buildStats(playerInfo: IPlayerInfo, gameMode: string){
 
@@ -83,6 +84,9 @@ const ProfileInfo: React.FC = () => {
       {error && 'Error!'}
       {loading && <Loading/>}
       {winLossBreakdown}
+    </div>
+    <div className="wrap-960">
+      <RecentMatches matches={playerInfo.recentMatches} gameMode={gameMode}/>
     </div>
     <div className="wrap-960">
       {mapBreakdown}

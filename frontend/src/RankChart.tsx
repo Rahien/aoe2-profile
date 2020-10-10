@@ -58,8 +58,8 @@ function buildMainCharts(dataSeries: {name: string, data: { x: Date; y: number }
     const lineName = `line-${name}`;
     const scatterName = `scatter-${name}`;
     return [
-      <VictoryLine name={lineName} style={styles[name]} data={data}/>,
-      <VictoryScatter name={scatterName} size={2.5} style={styles[`${name}Scatter`]} data={data} />
+      <VictoryLine key={lineName} name={lineName} style={styles[name]} data={data}/>,
+      <VictoryScatter key={scatterName} name={scatterName} size={2.5} style={styles[`${name}Scatter`]} data={data} />
     ]
   }).flat();
 }
@@ -67,7 +67,7 @@ function buildMainCharts(dataSeries: {name: string, data: { x: Date; y: number }
 function buildSmallCharts(dataSeries: {name: string, data: { x: Date; y: number }[]}[], styles: any){
   return dataSeries.map(({data, name}) => {
     const lineName = `small-${name}`;
-    return <VictoryLine name={lineName} style={styles[`${name}Small`]} data={data}/>
+    return <VictoryLine key={lineName} name={lineName} style={styles[`${name}Small`]} data={data}/>
   });
 }
 
@@ -80,7 +80,7 @@ function buildLegend(dataSeries: {name: string, data: { x: Date; y: number }[]}[
   }
   return dataSeries.map(({name}) => {
     const className = `legend-item ${name}`;
-    return <div className={className}>
+    return <div className={className} key={name}>
       <div className="color"></div>
       <label>{translations[name]}</label>
     </div>

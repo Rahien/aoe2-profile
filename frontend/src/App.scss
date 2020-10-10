@@ -5,6 +5,174 @@
   src: local('Cookie-Regular'), url(https://fonts.gstatic.com/s/cookie/v12/syky-y18lb0tSbf9kgqS1NDNpg.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+.match {
+  padding: 1em 2em;
+  background: #222;
+  margin-bottom: 0.5em;
+  a.player {
+    color: white;
+    text-decoration: none;
+  }
+
+  a.player:hover .player-name {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .players {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .player {
+      width: 40%;
+      .player-info {
+        text-align: left;
+        font-weight: bold;
+        align-items: center;
+        font-size: 1.2em;
+        display: flex;
+        margin-bottom: 0.5em;
+        img {
+          margin-right: 0.5em;
+        }
+        svg {
+          margin-left: 0.5em;
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+  .other-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    label {
+      margin-right: 0.5em;
+    }
+  }
+  .match-map {
+    font-size: 0.8em;
+  }
+
+  .match-name {
+    margin-right: 1em;
+  }
+
+
+  .match-type {
+    text-align: left;
+    font-weight: bold;
+    color: #aaa;
+    margin-top: 0.5em;
+
+  }
+
+  .vs:before {content: "vs";margin-left: 1em;margin-right: 1em;}
+
+
+  .civ {
+    display: flex;
+    align-items: center;
+  }
+
+  .civ-icon {
+    margin-right: 0.5em;
+  }
+
+  &.oneVone .player:last-child {
+    .player-info {
+      text-align: right;
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+    }
+    .civ {
+      justify-content: flex-start;
+      flex-direction: row-reverse;
+    }
+    .civ-icon {
+      margin-right: -0.5em;
+      margin-left: 0.5em;
+    }
+    .player-info img {
+      margin-right: 0;
+      margin-left: 0.5em;
+    }
+    .other-info {
+      flex-direction: row-reverse;
+    }
+
+  }
+
+  .match-type {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .match-map {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    margin-top: -0.5em;
+    color: white;
+    margin-right: -10px;
+
+    .map-icon {
+      transform: scale(0.55);
+    }
+    .map-icon {
+      margin-left: 0.5em;
+
+    }
+  }
+  .teamName {
+    label {
+      margin-right: 0.5em;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    svg.hidden {
+      opacity: 0;
+    }
+  }
+
+  &.teams .civ-icon {
+    margin-left: -0.5em;
+  }
+
+  .team-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .team {
+      width: 40%;
+
+      .players {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .players .player {
+        width: 100%;
+        margin-top: 0.5em;
+      }
+    }
+  }
+  .match-name {flex-grow: 1;}
+
+  .match-date {
+    font-weight: normal;
+    color: white;
+    font-size: 0.8em;
+    /* display: flex; */
+    /* align-items: center; */
+    height: fit-content;
+    margin-top: 0.5em;
+    margin-right: 1em;
+  }
+}
+
 .select-user {
   padding: 2em 1em;box-sizing: border-box;
 

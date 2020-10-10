@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import useFetch from "use-http/dist";
 import Loading from "./Loading";
 import ReactCountryFlag from 'react-country-flag';
@@ -22,7 +21,6 @@ interface PlayerListItem {
 }
 
 const SelectUser: React.FC<ISelectUserProps> = ({userName}) => {
-  const history = useHistory();
   let { loading, error, data = [] } = useFetch<PlayerListItem[]>(`/search-user?userName=${userName}`, {}, [userName]);
 
   if(loading){
@@ -33,13 +31,8 @@ const SelectUser: React.FC<ISelectUserProps> = ({userName}) => {
     return <div className="message error">Something went wrong while looking for users... please try again later.</div>;
   }
 
-  if(!data || data.length == 0){
+  if(!data || data.length === 0){
     return <div className="message">No users found...</div>;
-  }
-
-  const steamId = null;
-  function goToProfile(){
-    history.push(`/profile/${steamId}`);
   }
 
   const table = data.map((player) => {
