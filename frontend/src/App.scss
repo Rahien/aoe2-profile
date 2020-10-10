@@ -78,6 +78,7 @@
 
   .civ-icon {
     margin-right: 0.5em;
+    margin-left: -10px;
   }
 
   &.oneVone .player:last-child {
@@ -106,6 +107,7 @@
 
   .match-type {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 
@@ -186,7 +188,7 @@
     display: block;
     width: 100%;
     padding: 1em 2em;
-    background: #222;
+    background: #333;
     margin-bottom: 0.5em;
     box-sizing: border-box;
 
@@ -573,7 +575,7 @@ a.bmc-btn {
 }
 
 .find-user {
-  min-height: calc(100vh - 120px);
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -740,12 +742,48 @@ div#root {min-height: 100vh;}
     padding-right: 20px;
     box-sizing: border-box;
   }
-
+  .username-input {
+    max-width: calc(100vw - 2em);
+    box-sizing: border-box;
+    font-size: 0.9rem;
+  }
   .chart-wrap {
     width: 100%;
   }
 
+  .username-input {
+    max-width: calc(100vw - 2em);
+    box-sizing: border-box;
+    font-size: 0.9rem;
+  }
 
+
+  .select-user{
+    .main-info {
+      flex-wrap: wrap;
+    }
+    a.player-row .games-info > * {
+      text-align: justify;
+      justify-content: space-between;
+      display: flex;
+      width: 100%;
+      font-size: 0.8em;
+    }
+
+    a.player-row .games-info label {
+      font-size: 1em;
+    }
+
+    a.player-row .games-info {
+      width: 100%;
+      margin-top: 0.5em;
+    }
+
+    a.player-row {
+      font-size: 0.5em;
+    }
+
+  }
   .player-header {
     font-size: 0.6em;
   }
@@ -815,4 +853,37 @@ div#root {min-height: 100vh;}
   .chart-wrap .legend {
     margin-left: 0;
   }
+  .match .team-list .team {
+    width: 100%;
+  }
+  .match .players {
+    flex-direction: column;
+
+    .player {
+      width: 100%;
+    }
+  }
+  .recent-matches div.match.oneVone {
+    .players .player > * {
+      flex-direction: row;
+      .civ-icon {
+        margin-right: 0.5em;
+        margin-left: -10px;
+      }
+    }
+    .player:last-child {
+      .player-info img {
+        margin-left: 0;
+        margin-right: 0.5em;
+      }
+      .civ {
+        flex-direction: row;
+      }
+      .civ-icon {
+        margin-right: 0.5em;
+        margin-left: -10px;
+      }
+    }
+  }
+
 }
