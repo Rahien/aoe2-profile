@@ -35,7 +35,7 @@ const SearchUser: React.FC = () => {
       </div>
     </div>
     {userList}
-    <div className="fine-print">
+    <div className="fine-print wrap-960">
       We don't store any information you provide on our servers, this is purely a graphical frontend for the aoe2.net APIs
     </div>
   </div>

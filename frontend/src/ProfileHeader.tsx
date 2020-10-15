@@ -4,10 +4,11 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import BMC from "./BuyMeACoffee";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import ReactCountryFlag from 'react-country-flag';
 
 
-const ProfileHeader: React.FC<IPlayerInfoWrap> = ({gameMode, onGameModeChange}) => {
+const ProfileHeader: React.FC<IPlayerInfoWrap> = ({playerInfo, gameMode, onGameModeChange}) => {
   function handleGameModeChange(_:any, menuItem:any){
     if(onGameModeChange){
       onGameModeChange(menuItem.props.value);
@@ -16,10 +17,17 @@ const ProfileHeader: React.FC<IPlayerInfoWrap> = ({gameMode, onGameModeChange}) 
 
   return <div className="player-header">
     <div className="wrap-960">
-      <a className="aoe2-profile" href="/">
-        <FontAwesomeIcon icon={faHome}/>
-        AoE2 Profile
-      </a>
+      <div className="player-main">
+        <a className="aoe2-profile" href="/">
+          <FontAwesomeIcon icon={faChevronLeft}/>
+        </a>
+        <ReactCountryFlag
+          svg
+          cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/"
+          cdnSuffix="svg"
+          countryCode={playerInfo.country} />
+        <div className="player-name">{playerInfo.name}</div>
+      </div>
       <div className="flex">
         <BMC/>
         <Select

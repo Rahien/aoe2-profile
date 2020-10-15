@@ -180,7 +180,7 @@
 
 .select-user {
   flex-grow: 1;
-  padding: 2em 1em;box-sizing: border-box;
+  padding: 2em 20px;box-sizing: border-box;
   padding-top: 0;
 
   a.player-row:hover .name {
@@ -385,18 +385,17 @@ body{
   color: white;
 }
 
-.stats .player-main {
+.player-main {
   display: flex;
   font-size: 1.6em;
   font-width: bold;
   align-items: center;
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
   max-width: 50vw;
   align-items: center;
 
   .player-name {
     margin-left: 0.5em;
+    font-weight: bold;
   }
 }
 
@@ -496,7 +495,7 @@ table {
   }
 }
 .aoe2-profile {
-  font-size: 1.4em;
+  font-size: 1em;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -602,7 +601,7 @@ a.bmc-btn {
   justify-content: center;
   font-size: 1.5em;
   > .wrap-960:nth-child(2) {
-    padding: 1em;
+    padding: 20px;
     box-sizing: border-box;
   }
   label {

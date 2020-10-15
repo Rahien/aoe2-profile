@@ -9,7 +9,6 @@ import MapWinLossBreakdown from "./MapWinLossBreakdown";
 import Favorites from "./Favorites";
 import { useParams } from 'react-router-dom';
 import RecentMatches from "./RecentMatches";
-import ReactCountryFlag from 'react-country-flag';
 
 function buildStats(playerInfo: IPlayerInfo, gameMode: string){
 
@@ -75,14 +74,7 @@ const ProfileInfo: React.FC = () => {
     <div className="wrap-960 flex">
       <div className="main-panel">
         <div className='stats'>
-          <div className="player-main">
-            <ReactCountryFlag
-              svg
-              cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/"
-              cdnSuffix="svg"
-              countryCode={playerInfo.country} />
-            <div className="player-name">{playerInfo.name}</div>
-          </div>
+          <h2>Stats</h2>
           {buildStats(playerInfo, gameMode)}
           <Favorites playerInfo={playerInfo} gameMode={gameMode}/>
         </div>
