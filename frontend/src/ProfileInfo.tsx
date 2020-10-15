@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RankChart from "./RankChart";
 import useFetch from "use-http/dist";
-import PlayerHeader from "./PlayerHeader";
+import ProfileHeader from "./ProfileHeader";
 import {IPlayerInfo} from "./Types";
 import WinLossBreakdown from "./WinLossBreakdown";
 import Loading from "./Loading";
@@ -9,6 +9,7 @@ import MapWinLossBreakdown from "./MapWinLossBreakdown";
 import Favorites from "./Favorites";
 import { useParams } from 'react-router-dom';
 import RecentMatches from "./RecentMatches";
+import ReactCountryFlag from 'react-country-flag';
 
 function buildStats(playerInfo: IPlayerInfo, gameMode: string){
 
@@ -65,7 +66,7 @@ const ProfileInfo: React.FC = () => {
     return <Loading/>
   }
   const playerInfo = data as unknown as IPlayerInfo;
-  const header = <PlayerHeader playerInfo={playerInfo} gameMode={gameMode} onGameModeChange={setGameMode}/>;
+  const header = <ProfileHeader playerInfo={playerInfo} gameMode={gameMode} onGameModeChange={setGameMode}/>;
   const winLossBreakdown = <WinLossBreakdown playerInfo={playerInfo} gameMode={gameMode}/>;
   const mapBreakdown = <MapWinLossBreakdown playerInfo={playerInfo} gameMode={gameMode}/>;
 
@@ -74,7 +75,14 @@ const ProfileInfo: React.FC = () => {
     <div className="wrap-960 flex">
       <div className="main-panel">
         <div className='stats'>
-          <h2>Stats</h2>
+          <div className="player-main">
+            <ReactCountryFlag
+              svg
+              cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/"
+              cdnSuffix="svg"
+              countryCode={playerInfo.country} />
+            <div className="player-name">{playerInfo.name}</div>
+          </div>
           {buildStats(playerInfo, gameMode)}
           <Favorites playerInfo={playerInfo} gameMode={gameMode}/>
         </div>

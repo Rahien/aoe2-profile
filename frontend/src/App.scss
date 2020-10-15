@@ -179,7 +179,9 @@
 }
 
 .select-user {
+  flex-grow: 1;
   padding: 2em 1em;box-sizing: border-box;
+  padding-top: 0;
 
   a.player-row:hover .name {
     text-decoration: underline;
@@ -190,10 +192,11 @@
     text-decoration: none;
     display: block;
     width: 100%;
-    padding: 1em 2em;
+    padding: 0.5em 2em;
     background: #333;
     margin-bottom: 0.5em;
     box-sizing: border-box;
+    border: 2px outset #444;
 
     .rating_3,.rating_2 {
       text-align: center;
@@ -216,12 +219,12 @@
     .name {
       flex-grow: 1;
       text-align: left;
-      font-size: 1.5em;
+      font-size: 1.2em;
     }
 
     img {
       margin-right: 1em;
-      font-size: 2em;
+      font-size: 1.2em;
     }
 
     .games-info {
@@ -381,6 +384,22 @@ body{
   background: #111111;
   color: white;
 }
+
+.stats .player-main {
+  display: flex;
+  font-size: 1.6em;
+  font-width: bold;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  max-width: 50vw;
+  align-items: center;
+
+  .player-name {
+    margin-left: 0.5em;
+  }
+}
+
 .player-header {
   color: white;
   padding: 1em;
@@ -395,16 +414,6 @@ body{
   .wrap-960 {
     display: flex;
     justify-content: space-between;
-
-    .player-main {
-      display: flex;
-      font-size: 1.3em;
-      align-items: center;
-
-      .player-name {
-        margin-left: 0.5em;
-      }
-    }
 
     span.games-detail {
       font-weight: normal;
@@ -487,7 +496,15 @@ table {
   }
 }
 .aoe2-profile {
-  font-size: 1.7em;
+  font-size: 1.4em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  svg {
+    margin-right: 1em;
+  }
 }
 .game-content-useage-notice{
   font-size: 0.7em;
@@ -584,7 +601,10 @@ a.bmc-btn {
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
-
+  > .wrap-960:nth-child(2) {
+    padding: 1em;
+    box-sizing: border-box;
+  }
   label {
     margin-right: 1em;
   }
@@ -598,6 +618,7 @@ a.bmc-btn {
     color: white;
     font-weight: bold;
     font-size: 0.8em;
+    border: 2px outset #444;
   }
 
   label {
@@ -618,6 +639,13 @@ a.bmc-btn {
     padding: 1em;
     display: flex;
     align-items: center;
+    margin-top: 2em;
+    margin-bottom: 0;
+    border: 2px outset #444;
+
+    input {
+      flex-grow: 1;
+    }
   }
   .logo {
     margin-top: 1em;
@@ -745,18 +773,11 @@ div#root {min-height: 100vh;}
     padding-right: 20px;
     box-sizing: border-box;
   }
-  .username-input {
-    max-width: calc(100vw - 2em);
-    box-sizing: border-box;
-    font-size: 0.9rem;
-  }
   .chart-wrap {
     width: 100%;
   }
 
   .username-input {
-    max-width: calc(100vw - 2em);
-    box-sizing: border-box;
     font-size: 0.9rem;
   }
 

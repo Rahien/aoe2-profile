@@ -44,3 +44,16 @@ export interface IMatch {
   finished: number,
   players: IMatchPlayer[]
 }
+
+export interface IPlayerListItem {
+  rating_1: number,
+  rating_2: number,
+  rating_3: number,
+  rating_4: number,
+  steam_id: string,
+  name: string,
+  clan: string,
+  country: string,
+  games: number
+  last_match: number
+}

@@ -242,6 +242,16 @@ const searchUser: (req:Request) => Promise<any> = async (req) => {
   });
 }
 
+interface IRankParams {
+  leaderboardId?: number
+}
+
+const getRanks: (req:Request) => Promise<any> = async (req) => {
+  const params = req.query as unknown as IRankParams;
+  const players = await axios.get(`https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=${params.leaderboardId || 3}&count=20`);
+  return players.data.leaderboard;
+}
+
 app.get( "/rank-history",  ( req: Request, res: Response ) => {
   getRankHistory(req).then((result) => {
     res.send(result);
@@ -256,6 +266,12 @@ app.get( "/match-stats",  ( req: Request, res: Response ) => {
 
 app.get( "/search-user",  ( req: Request, res: Response ) => {
   searchUser(req).then((result) => {
+    res.send(result);
+  });
+} );
+
+app.get( "/rank-list",  ( req: Request, res: Response ) => {
+  getRanks(req).then((result) => {
     res.send(result);
   });
 } );
