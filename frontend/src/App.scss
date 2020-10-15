@@ -13,6 +13,9 @@
   a.player {
     color: white;
     text-decoration: none;
+    padding: 0.2em 0.5em;
+    background: #333;
+    border: groove 2px #444;
   }
 
   a.player:hover .player-name {
@@ -117,7 +120,7 @@
     font-weight: normal;
     margin-top: -0.5em;
     color: white;
-    margin-right: -10px;
+    margin-right: -8px;
 
     .map-icon {
       transform: scale(0.55);

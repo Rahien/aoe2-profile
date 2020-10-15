@@ -30,7 +30,7 @@ const renderPlayer = (player:any, hideVictory?:boolean) => {
       </div>
       <div className="rating">
         <label>Rating:</label>
-        <span>{player.rating}</span>
+        <span>{player.rating || "-"}</span>
       </div>
     </div>
 

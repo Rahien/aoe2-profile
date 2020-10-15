@@ -35,8 +35,8 @@ const SelectUser: React.FC<ISelectUserProps> = ({userName}) => {
     return <div className="message">No users found...</div>;
   }
 
-  const table = data.map((player) => {
-    return <a className="player-row wrap" href={`/profile/${player.steam_id}`}>
+  const table = data.map((player, index) => {
+    return <a className="player-row wrap" key={index} href={`/profile/${player.steam_id}`}>
       <div className="main-info">
         <ReactCountryFlag
           svg
@@ -58,19 +58,19 @@ const SelectUser: React.FC<ISelectUserProps> = ({userName}) => {
       <div className="ratings">
         <div className="rating_1">
           <label>1v1 DM:</label>
-          <span>{player.rating_1 || "/"}</span>
+          <span>{player.rating_1 || "-"}</span>
         </div>
         <div className="rating_2">
           <label>Team DM:</label>
-          <span>{player.rating_2 || "/"}</span>
+          <span>{player.rating_2 || "-"}</span>
         </div>
         <div className="rating_3">
           <label>1v1 RM:</label>
-          <span>{player.rating_3 || "/"}</span>
+          <span>{player.rating_3 || "-"}</span>
         </div>
         <div className="rating_4">
           <label>Team RM:</label>
-          <span>{player.rating_4 || "/"}</span>
+          <span>{player.rating_4 || "-"}</span>
         </div>
       </div>
     </a>;
